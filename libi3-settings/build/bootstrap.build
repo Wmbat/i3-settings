@@ -1,0 +1,7 @@
+project = libi3-settings
+
+using version
+using config
+using test
+using install
+using dist

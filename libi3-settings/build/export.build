@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libi3-settings/
+}
+
+export $out_root/libi3-settings/$import.target

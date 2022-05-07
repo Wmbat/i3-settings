@@ -1,0 +1,5 @@
+i3-settings
+
+# Testscript output directory (can be symlink).
+#
+test-i3-settings

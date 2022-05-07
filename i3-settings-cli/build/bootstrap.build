@@ -1,0 +1,7 @@
+project = i3-settings-cli
+
+using version
+using config
+using test
+using install
+using dist
