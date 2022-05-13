@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+    
+      - name: Build2 setup
+        uses: build2/setup-build2-github-action@v2
 
       - name: Update system & install necessary tools
         run: |
@@ -22,7 +25,6 @@ jobs:
           pip install compiledb
 
       - name: Generate compilation database
-        uses: build2/setup-build2-github-action@v2
         run: |
           bdep init -C @clang cc config.cxx=clang++
           b -vn clean update |& compiledb
