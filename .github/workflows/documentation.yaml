@@ -1,0 +1,37 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build-documentation:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        uses: build2/setup-build2-github-action@v2
+
+      - name: Update system & install necessary tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install doxygen
+          sudo apt-get -y install clang-13
+          sudo apt-get -y install python3
+          pip install compiledb
+
+      - name: Generate compilation database
+        run: |
+          bdep init -C @clang cc config.cxx=clang++
+          b -vn clean update |& compiledb
+ 
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+
+      - name: Publish Documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ../i3-settings-docs/html/
