@@ -1,12 +1,4 @@
-#include <sstream>
-#include <stdexcept>
-
 #include <libi3-settings/version.hpp>
 
-#undef NDEBUG
-#include <cassert>
-
-auto main() -> int
-{
-	return 0;
-}
+#define CATCH_CONFIG_MAIN
+#include <catch2/catch.hpp>

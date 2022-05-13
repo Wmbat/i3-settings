@@ -2,7 +2,7 @@
 name: libi3-settings
 version: 0.1.0-a.0.z
 project: i3-settings
-summary: i3-settings C++ library
+summary: i3-settings API to read & modify i3's config file
 license: other: proprietary ; Not free/open source.
 description-file: README.md
 url: https://example.org/i3-settings
@@ -11,4 +11,8 @@ email: wmbat-dev@protonmail.com
 depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
 
+depends: fmt ^8.1.1
+depends: magic_enum ^0.7.3
+depends: range-v3 ^0.11.0
+depends: tl-expected ^1.0.0
 depends: catch2 ^2.13.8
