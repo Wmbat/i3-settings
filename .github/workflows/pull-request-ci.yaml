@@ -12,6 +12,9 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+
       - name: Build2 setup
         uses: build2/setup-build2-github-action@v2
       
