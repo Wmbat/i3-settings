@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-build2:
-    name: Compile build2
+  main:
+    name: Main CI
     runs-on: ubuntu-latest
     steps:
       - name: Build2 setup
@@ -23,11 +23,6 @@ jobs:
             /usr/local/bin/b
             /usr/local/bin/bdep
 
-  setup-environment:
-    needs: [get-build2]
-    name: Setup Environment
-    runs-on: ubuntu-latest
-    steps:
       - name: Update system & install necessary tools
         run: |
           sudo apt-get -y update
@@ -40,12 +35,8 @@ jobs:
         with:
           version: 13
 
-  documentation:
-    needs: [setup-environment]
-    name: Build & Publish Documentation
-    uses: ./.github/workflows/documentation.yaml
+      - name: Sanity Checks
+        uses: ./.github/workflows/sanity-checks.yaml
 
-  sanity-checks:
-    needs: [setup-environment]
-    name: Sanity Checks
-    uses: ./.github/workflows/sanity-checks.yaml
+      - name: Build & Publish Documentation
+        uses: ./.github/workflows/documentation.yaml

@@ -8,18 +8,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-build2:
-    name: Compile build2
+  pull-request:
+    name: Pull Request CI
     runs-on: ubuntu-latest
     steps:
       - name: Build2 setup
         uses: build2/setup-build2-github-action@v2
       
-      - name: Get location of Build2
-        run: |
-          which bdep
-          which b
-
       - name: Publish Build2 executables
         uses: actions/upload-artifact@v3
         with:
@@ -28,7 +23,17 @@ jobs:
             /usr/local/bin/b
             /usr/local/bin/bdep
 
-  sanity-checks:
-    needs: [get-build2]
-    name: Sanity Checks
-    uses: ./.github/workflows/sanity-checks.yaml
+      - name: Update system & install necessary tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install doxygen
+          sudo apt-get -y install python3
+          pip install compiledb
+    
+      - name: Install Clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: 13
+
+      - name: Sanity Checks
+        uses: ./.github/workflows/sanity-checks.yaml

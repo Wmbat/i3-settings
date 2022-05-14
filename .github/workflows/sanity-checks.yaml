@@ -11,18 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Update system & install necessary tools
-        run: |
-          sudo apt-get -y update
-          sudo apt-get -y install doxygen
-          sudo apt-get -y install python3
-          pip install compiledb
-    
-      - name: Install Clang
-        uses: egor-tensin/setup-clang@v1
-        with:
-          version: 13
-
       - name: Get build2
         uses: actions/download-artifact@v3
         with:
@@ -30,5 +18,5 @@ jobs:
 
       - name: Generate compilation database
         run: |
-          sudo ./bdep init -C @clang cc config.cxx=clang++
-          sudo ./b test
+          bdep init -C @clang cc config.cxx=clang++
+          b test
