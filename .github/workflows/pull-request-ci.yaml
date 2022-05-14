@@ -25,9 +25,10 @@ jobs:
           pip install compiledb
     
       - name: install Clang
-        uses: egor-tensin/setup-clang@v1
-        with:
-          version: 13
+        run: |
+          deb http://apt.llvm.org/focal/ llvm-toolchain-focal-13 main
+          deb-src http://apt.llvm.org/focal/ llvm-toolchain-focal-13 main
+          apt-get install clang-13 lldb-13 lld-13 clang-tools-13 clang-tidy-13
 
       - name: install Build2
         uses: build2/setup-build2-github-action@v2
