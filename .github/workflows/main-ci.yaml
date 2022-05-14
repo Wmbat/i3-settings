@@ -27,10 +27,11 @@ jobs:
       - name: Install Build2
         uses: build2/setup-build2-github-action@v2
 
+      - name: Test
+        run: ls -lah && ls -lah ../
+
       - name: Setup project
-        run: | 
-          ls ./
-          bdep init -C ../clang @clang cc config.c=clang config.cxx="clang++ -stdlib=libc++"
+        run: bdep init -C ../clang @clang cc config.c=clang config.cxx="clang++ -stdlib=libc++"
 
       - name: Compile project
         run: b
