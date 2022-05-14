@@ -15,11 +15,6 @@ jobs:
       - name: Build2 setup
         uses: build2/setup-build2-github-action@v2
       
-      - name: Get location of Build2
-        run: |
-          which bdep
-          which b
-
       - name: Publish Build2 executables
         uses: actions/upload-artifact@v3
         with:
@@ -30,7 +25,7 @@ jobs:
 
   documentation:
     needs: [get-build2]
-    name: Build Documentation & publish documentation
+    name: Build & Publish Documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -52,6 +47,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build2-artifact
+          path: /usr/local/bin/
 
       - name: Generate compilation database
         run: |
