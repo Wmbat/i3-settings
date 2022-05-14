@@ -12,43 +12,48 @@ jobs:
     name: Build, Test, and Publish
     runs-on: ubuntu-latest
     steps:  
-      - name: Checkout 
+      - name: checkout 
         uses: actions/checkout@v2
 
-      - name: Update system & install necessary tools
+      - name: update system
         run: |
           sudo apt-get -y update
           sudo apt-get -y install doxygen
           sudo apt-get -y install python3
           pip install compiledb
 
-      - name: Install Clang
+      - name: install Clang
         uses: egor-tensin/setup-clang@v1
         with:
           version: 13
 
-      - name: Install Build2
+      - name: install Build2
         uses: build2/setup-build2-github-action@v2
 
-      - name: Setup project
-        run: bdep init -C ../clang @clang cc config.c=clang config.cxx="clang++ -stdlib=libc++"
+      - name: setup project
+        run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++
 
-      - name: Compile project
+      - name: compile project
         run: b
 
-      - name: Generate compilation database
+      - name: generate compilation database
         run: b -vn clean update |& compiledb
 
-      - name: Run unit tests
+      - name: run unit tests
         run: b test
 
-      - name: Clang-tidy Checks
+      - name: clang-format style check
+        uses: jidicula/clang-format-action@v4.6.2
+        with:
+          clang-format-version: '13'
+
+      - name: clang-tidy
         run: run-clang-tidy -p "./"
  
-      - name: Generate Documentation
+      - name: generate documentation
         run: doxygen Doxyfile
 
-      - name: Publish Documentation
+      - name: publish documentation
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
