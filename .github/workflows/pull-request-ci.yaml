@@ -20,14 +20,12 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install doxygen
           sudo apt-get -y install python3
-          sudo apt-get -y install clang-tools-12
-          sudo apt-get -y install clang-tidy-12
           pip install compiledb
     
       - name: install Clang
         run: |
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
-          apt-get install clang-13 lldb-13 lld-13 clang-tools-13 clang-tidy-13
+          sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+          sudo apt-get install clang-13 lldb-13 lld-13 clang-tools-13 clang-tidy-13
 
       - name: install Build2
         uses: build2/setup-build2-github-action@v2
