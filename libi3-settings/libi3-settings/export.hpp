@@ -36,5 +36,5 @@
 //
 #	define LIBI3_SETTINGS_SYMEXPORT // Using static or shared.
 //#  error define LIBI3_SETTINGS_STATIC or LIBI3_SETTINGS_SHARED preprocessor macro to signal
-//libi3-settings library type being linked
+// libi3-settings library type being linked
 #endif
