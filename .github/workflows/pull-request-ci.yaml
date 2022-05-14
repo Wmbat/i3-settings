@@ -20,7 +20,8 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install doxygen
           sudo apt-get -y install python3
-          sudo apt-get -y install clang-tidy-13
+          sudo apt-get -y install clang-tools
+          sudo apt-get -y install clang-tidy
           pip install compiledb
     
       - name: install Clang
@@ -55,6 +56,3 @@ jobs:
         uses: jidicula/clang-format-action@v4.6.2
         with:
           clang-format-version: '13'
-
-      - name: clang-tidy
-        run: run-clang-tidy -p "./"
