@@ -29,6 +29,7 @@ jobs:
             /usr/local/bin/bdep
 
   documentation:
+    needs: [get-build2]
     name: Build Documentation & publish documentation
     runs-on: ubuntu-latest
     steps:
@@ -67,5 +68,6 @@ jobs:
           publish_dir: ../i3-settings-docs/html/
 
   sanity-checks:
+    needs: [get-build2]
     name: Sanity Checks
     uses: ./.github/workflows/sanity-checks.yaml

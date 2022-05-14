@@ -29,5 +29,6 @@ jobs:
             /usr/local/bin/bdep
 
   sanity-checks:
+    needs: [get-build2]
     name: Sanity Checks
     uses: ./.github/workflows/sanity-checks.yaml
