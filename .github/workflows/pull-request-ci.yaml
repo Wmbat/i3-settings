@@ -26,8 +26,7 @@ jobs:
     
       - name: install Clang
         run: |
-          deb http://apt.llvm.org/focal/ llvm-toolchain-focal-13 main
-          deb-src http://apt.llvm.org/focal/ llvm-toolchain-focal-13 main
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
           apt-get install clang-13 lldb-13 lld-13 clang-tools-13 clang-tidy-13
 
       - name: install Build2
