@@ -1,0 +1,36 @@
+name: Sanity Checks
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build-documentation:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Update system & install necessary tools
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install doxygen
+    
+      - name: Build2 setup
+        uses: build2/setup-build2-github-action@v2
+
+      - name: Install Clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: 13
+
+      - name: Generate compilation database
+        run: |
+          bdep init -C @clang cc config.cxx=clang++
+          b -vn clean update |& compiledb
+          b test 
