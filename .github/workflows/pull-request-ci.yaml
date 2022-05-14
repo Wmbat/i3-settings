@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  pull-request:
-    name: Pull Request CI
+  main:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Build2 setup
@@ -27,5 +27,17 @@ jobs:
         with:
           version: 13
 
-      - name: Sanity Checks
-        uses: ./.github/workflows/sanity-checks.yaml
+      - name: Setup project
+        run: bdep init -C @clang cc config.cxx=clang++
+
+      - name: Compile project
+        run: b
+
+      - name: Generate compilation database
+        run: b -vn clean update |& compiledb
+
+      - name: Run unit tests
+        run: b test
+
+      - name: Clang-tidy Checks
+        run: run-clang-tidy -p "./" 

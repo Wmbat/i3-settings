@@ -1,4 +1,4 @@
-name: Main CI
+name: CI
 
 on:
   push:
@@ -27,6 +27,26 @@ jobs:
         with:
           version: 13
 
-      - uses: ./.github/workflows/sanity-checks
+      - name: Setup project
+        run: bdep init -C @clang cc config.cxx=clang++
 
-      - uses: ./.github/workflows/documentation
+      - name: Compile project
+        run: b
+
+      - name: Generate compilation database
+        run: b -vn clean update |& compiledb
+
+      - name: Run unit tests
+        run: b test
+
+      - name: Clang-tidy Checks
+        run: run-clang-tidy -p "./"
+ 
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+
+      - name: Publish Documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ../i3-settings-docs/html/
