@@ -9,20 +9,12 @@ on:
 
 jobs:
   main:
-    name: Main CI
+    name: Build, Test, and Publish
     runs-on: ubuntu-latest
     steps:
       - name: Build2 setup
         uses: build2/setup-build2-github-action@v2
       
-      - name: Publish Build2 executables
-        uses: actions/upload-artifact@v3
-        with:
-          name: build2-artifact
-          path: |
-            /usr/local/bin/b
-            /usr/local/bin/bdep
-
       - name: Update system & install necessary tools
         run: |
           sudo apt-get -y update
@@ -35,8 +27,6 @@ jobs:
         with:
           version: 13
 
-      - name: Sanity Checks
-        uses: ./.github/workflows/sanity-checks.yaml
+      - uses: ./.github/workflows/sanity-checks.yaml
 
-      - name: Build & Publish Documentation
-        uses: ./.github/workflows/documentation.yaml
+      - uses: ./.github/workflows/documentation.yaml

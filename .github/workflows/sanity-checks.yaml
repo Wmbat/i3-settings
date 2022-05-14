@@ -11,12 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get build2
-        uses: actions/download-artifact@v3
-        with:
-          name: build2-artifact
-
       - name: Generate compilation database
         run: |
           bdep init -C @clang cc config.cxx=clang++
           b test
+
+      - name: Clang-tidy Checks
+        run: run-clang-tidy -p "./"

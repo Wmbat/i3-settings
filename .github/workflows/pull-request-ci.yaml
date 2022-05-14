@@ -15,14 +15,6 @@ jobs:
       - name: Build2 setup
         uses: build2/setup-build2-github-action@v2
       
-      - name: Publish Build2 executables
-        uses: actions/upload-artifact@v3
-        with:
-          name: build2-artifact
-          path: |
-            /usr/local/bin/b
-            /usr/local/bin/bdep
-
       - name: Update system & install necessary tools
         run: |
           sudo apt-get -y update
