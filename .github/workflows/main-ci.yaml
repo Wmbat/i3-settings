@@ -20,7 +20,7 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install doxygen
           sudo apt-get -y install python3
-          sudo apt-get -y install clang-tools-13
+          sudo apt-get -y install clang-tidy-13
           pip install compiledb
 
       - name: install Clang

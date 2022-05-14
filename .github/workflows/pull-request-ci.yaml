@@ -42,10 +42,10 @@ jobs:
       - name: run unit tests
         run: b test
 
+      - uses: ZedThree/clang-tidy-review@v0.7.0
+        id: review
+
       - name: clang-format style check
         uses: jidicula/clang-format-action@v4.6.2
         with:
           clang-format-version: '13'
-
-      - name: clang-tidy
-        run: run-clang-tidy -p "./" 

@@ -1,4 +1,8 @@
+#include <utility>
+
 auto main() -> int
 {
-	return 0;
+	int i = 0;
+
+	return std::move(i);
 }
