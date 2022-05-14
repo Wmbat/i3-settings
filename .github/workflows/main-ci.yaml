@@ -11,24 +11,26 @@ jobs:
   main:
     name: Build, Test, and Publish
     runs-on: ubuntu-latest
-    steps:
-      - name: Build2 setup
-        uses: build2/setup-build2-github-action@v2
-      
+    steps:  
       - name: Update system & install necessary tools
         run: |
           sudo apt-get -y update
           sudo apt-get -y install doxygen
           sudo apt-get -y install python3
           pip install compiledb
-    
+   
       - name: Install Clang
         uses: egor-tensin/setup-clang@v1
         with:
           version: 13
 
+      - name: Install Build2
+        uses: build2/setup-build2-github-action@v2
+
       - name: Setup project
-        run: bdep init -C @clang cc config.cxx=clang++
+        run: | 
+          ls ./
+          bdep init -C ../clang @clang cc config.c=clang config.cxx="clang++ -stdlib=libc++"
 
       - name: Compile project
         run: b
