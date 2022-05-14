@@ -12,6 +12,9 @@ jobs:
     name: Build, Test, and Publish
     runs-on: ubuntu-latest
     steps:  
+      - name: Test
+        run: ls -lah
+
       - name: Update system & install necessary tools
         run: |
           sudo apt-get -y update
@@ -26,9 +29,6 @@ jobs:
 
       - name: Install Build2
         uses: build2/setup-build2-github-action@v2
-
-      - name: Test
-        run: ls -lah && ls -lah ../
 
       - name: Setup project
         run: bdep init -C ../clang @clang cc config.c=clang config.cxx="clang++ -stdlib=libc++"
