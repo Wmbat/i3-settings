@@ -1,0 +1,33 @@
+name: Pull Request CI
+
+on:
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  get-build2:
+    name: Compile build2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build2 setup
+        uses: build2/setup-build2-github-action@v2
+      
+      - name: Get location of Build2
+        run: |
+          which bdep
+          which b
+
+      - name: Publish Build2 executables
+        uses: actions/upload-artifact@v3
+        with:
+          name: build2-artifact
+          path: |
+            /usr/local/bin/b
+            /usr/local/bin/bdep
+
+  sanity-checks:
+    name: Sanity Checks
+    uses: ./.github/workflows/sanity-checks
