@@ -27,6 +27,6 @@ jobs:
         with:
           version: 13
 
-      - uses: ./.github/workflows/sanity-checks.yaml
+      - uses: wmbat/i3-settings/.github/workflows/sanity-checks.yaml
 
-      - uses: ./.github/workflows/documentation.yaml
+      - uses: wmbat/i3-settings/.github/workflows/documentation.yaml
