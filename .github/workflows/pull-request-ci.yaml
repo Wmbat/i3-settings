@@ -30,17 +30,25 @@ jobs:
         with:
           version: 13
 
-      - name: Setup project
-        run: bdep init -C @clang cc config.cxx=clang++
+      - name: install Build2
+        uses: build2/setup-build2-github-action@v2
 
-      - name: Compile project
+      - name: setup project
+        run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++
+
+      - name: compile project
         run: b
 
-      - name: Generate compilation database
+      - name: generate compilation database
         run: b -vn clean update |& compiledb
 
-      - name: Run unit tests
+      - name: run unit tests
         run: b test
 
-      - name: Clang-tidy Checks
+      - name: clang-format style check
+        uses: jidicula/clang-format-action@v4.6.2
+        with:
+          clang-format-version: '13'
+
+      - name: clang-tidy
         run: run-clang-tidy -p "./" 
