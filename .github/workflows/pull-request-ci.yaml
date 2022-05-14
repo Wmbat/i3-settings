@@ -30,4 +30,4 @@ jobs:
 
   sanity-checks:
     name: Sanity Checks
-    uses: ./.github/workflows/sanity-checks
+    uses: ./.github/workflows/sanity-checks.yaml

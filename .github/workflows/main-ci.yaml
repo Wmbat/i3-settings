@@ -2,7 +2,7 @@ name: Main CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, CI]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -68,4 +68,4 @@ jobs:
 
   sanity-checks:
     name: Sanity Checks
-    uses: ./.github/workflows/sanity-checks
+    uses: ./.github/workflows/sanity-checks.yaml
