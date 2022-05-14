@@ -35,8 +35,8 @@ jobs:
 
       - name: Generate compilation database
         run: |
-          sudo /usr/local/bin/bdep init -C @clang cc config.cxx=clang++
-          sudo /usr/local/bin/b -vn clean update |& compiledb
+          /usr/local/bin/bdep init -C @clang cc config.cxx=clang++
+          /usr/local/bin/b -vn clean update |& compiledb
  
       - name: Generate Documentation
         run: doxygen Doxyfile
