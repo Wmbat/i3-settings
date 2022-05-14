@@ -30,5 +30,5 @@ jobs:
 
       - name: Generate compilation database
         run: |
-          sudo bdep init -C @clang cc config.cxx=clang++
-          sudo b test
+          bdep init -C @clang cc config.cxx=clang++
+          b test
