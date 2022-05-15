@@ -43,8 +43,8 @@ jobs:
       - name: run unit tests
         run: b test
 
-      - name: run clang-tidy
-        run: run-clang-tidy -p "./"
+          #- name: run clang-tidy
+          #  run: run-clang-tidy -p "./"
 
       - name: run clang-format
         uses: jidicula/clang-format-action@v4.6.2
