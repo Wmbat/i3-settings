@@ -26,8 +26,8 @@ jobs:
         run: |
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
-          sudo ./llvm.sh 13
-          sudo apt-get install clang-tools-13 clang-tidy-13
+          sudo ./llvm.sh 14
+          sudo apt-get install clang-tools-14 clang-tidy-14
 
       - name: install Build2
         uses: build2/setup-build2-github-action@v2
@@ -55,4 +55,4 @@ jobs:
       - name: run clang-format
         uses: jidicula/clang-format-action@v4.6.2
         with:
-          clang-format-version: '13'
+          clang-format-version: '14'
