@@ -1,14 +1,8 @@
-#include <iostream>
+#include <libi3-settings/settings.hpp>
 
-int main (int argc, char* argv[])
+auto main() -> int
 {
-  using namespace std;
-
-  if (argc < 2)
-  {
-    cerr << "error: missing name" << endl;
-    return 1;
-  }
-
-  cout << "Hello, " << argv[1] << '!' << endl;
+	if (auto res = i3s::load_config_data("~/.config/i3/config").transform(i3s::extract_settings))
+	{
+	}
 }

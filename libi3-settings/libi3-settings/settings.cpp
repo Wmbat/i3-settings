@@ -1,3 +1,4 @@
+#include "libi3-settings/parsing/scanning.hpp"
 #include <libi3-settings/settings.hpp>
 
 #include <libi3-settings/defines.hpp>
@@ -45,8 +46,7 @@ namespace i3s
 		return std::error_code({static_cast<int>(error_code), parse_error_category()});
 	}
 
-	auto load_config_data(std::filesystem::path const& path)
-		-> tl::expected<std::vector<char>, error>
+	auto load_config_data(std::filesystem::path const& path) -> tl::expected<std::string, error>
 	{
 		auto file = std::fstream(path);
 		if (file.is_open())
@@ -55,7 +55,7 @@ namespace i3s
 			std::streamsize size = file.tellg();
 			file.seekg(0, std::ios::beg);
 
-			auto file_data = std::vector<char>(static_cast<std::size_t>(size));
+			auto file_data = std::string(static_cast<std::size_t>(size), char{});
 
 			file.read(file_data.data(), size);
 
@@ -67,5 +67,10 @@ namespace i3s
 		}
 	}
 
-	auto parse_config_data(std::span<const char>) -> tl::expected<settings, error> { return {}; }
+	auto extract_settings(std::string&& data) -> tl::expected<settings, error>
+	{
+		auto scanned_data = parsing::scan_data(data);
+
+		return {};
+	}
 } // namespace i3s

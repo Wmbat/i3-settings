@@ -29,7 +29,7 @@ namespace i3s
 	auto make_error_code(parse_error error_code) -> std::error_code;
 
 	auto load_config_data(std::filesystem::path const& path)
-		-> tl::expected<std::vector<char>, error>;
+		-> tl::expected<std::string, error>;
 
-	auto parse_config_data(std::span<const char> config) -> tl::expected<settings, error>;
+	auto extract_settings(std::string&& data) -> tl::expected<settings, error>;
 } // namespace i3s
