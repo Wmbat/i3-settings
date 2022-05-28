@@ -2,7 +2,8 @@ import intf_libs = fmt%lib{fmt}
 import intf_libs += magic_enum%lib{magic_enum}
 import intf_libs += range-v3%lib{range-v3}
 import intf_libs += tl-expected%lib{tl-expected}
-impl_libs = 
+
+import impl_libs = ctre%lib{ctre}
 
 lib{i3-settings}: {hxx ixx txx cxx}{** -version} hxx{version} $impl_libs $intf_libs
 

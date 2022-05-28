@@ -15,4 +15,5 @@ depends: fmt ^8.1.1
 depends: magic_enum ^0.7.3
 depends: range-v3 ^0.11.0
 depends: tl-expected ^1.0.0
+depends: ctre ^3.5.0
 depends: catch2 ^2.13.8

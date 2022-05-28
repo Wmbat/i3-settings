@@ -1,6 +1,7 @@
-#include "libi3-settings/parsing/scanning.hpp"
 #include <libi3-settings/settings.hpp>
 
+#include <libi3-settings/parsing/lexing.hpp>
+#include <libi3-settings/parsing/scanning.hpp>
 #include <libi3-settings/defines.hpp>
 
 #include <fstream>
@@ -69,7 +70,16 @@ namespace i3s
 
 	auto extract_settings(std::string&& data) -> tl::expected<settings, error>
 	{
-		auto scanned_data = parsing::scan_data(data);
+		auto const scanned_data = parsing::scan_data(data);
+
+		auto lex_view = scanned_data | parsing::views::lex;
+
+		for(auto c : lex_view)
+		{
+
+		}
+
+		//auto const tokens = parsing::lex_data(scanned_data);
 
 		return {};
 	}

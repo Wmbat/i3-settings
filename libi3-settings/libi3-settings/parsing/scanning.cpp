@@ -23,9 +23,9 @@ namespace i3s::parsing
 
 	struct line_adder
 	{
-		constexpr auto operator()(std::string output, std::string_view line) -> std::string
+		constexpr auto operator()(std::string output, auto line) -> std::string
 		{
-			output += line;
+			output += std::string_view(&*line.begin(), std::size_t(ranges::distance(line)));
 			output += '\n';
 			return output;
 		}
@@ -42,30 +42,27 @@ namespace i3s::parsing
 	}
 	auto is_empty(std::string_view line) -> bool { return line.empty(); }
 
-	auto scan_data(std::string_view data) -> std::vector<std::string_view>
-	{
-		/*
-		 * The call could be removed and the simpler
-		 *
-		 * auto lines = data
-		 *   | rv::split('\n')
-		 *   | rv::transform([](auto word){
-		 *       return std::string_view(word);
-		 *     });
-		 *
-		 *  could be used with better std::ranges support and C++23
-		 */
+	/**
+	 * TODO(wmbat): Make unicode friendly
+	 */
+	auto is_space(char c) -> bool { return std::isspace(c); }
 
+	auto trim_line(std::string_view const line) { return line | rv::trim(is_space); }
+
+	auto scan_data(std::string_view data) -> std::string
+	{
 		// clang-format off
 
-		return data 
+		auto lines = data 
 			| rv::split('\n') 
 			| rv::transform([](auto line) { 
-					return std::string_view(&*line.begin(), std::size_t(ranges::distance(line))); 
+					return std::string_view(&*line.begin(), std::size_t(ranges::distance(line)));
 				})
 			| rv::remove_if(is_empty)
 			| rv::remove_if(is_comment)
-			| ranges::to<std::vector>;
+			| rv::transform(trim_line);
+
+		return ranges::accumulate(lines, std::string{}, line_adder{});
 
 		// clang-format on
 	}
