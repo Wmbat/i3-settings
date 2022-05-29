@@ -4,7 +4,6 @@
 
 #include <fmt/format.h>
 
-#include <source_location>
 #include <system_error>
 
 namespace i3s

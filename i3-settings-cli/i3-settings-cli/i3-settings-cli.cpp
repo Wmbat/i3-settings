@@ -1,14 +1,6 @@
-#include <iostream>
+#include <utility>
 
-int main (int argc, char* argv[])
+auto main() -> int
 {
-  using namespace std;
-
-  if (argc < 2)
-  {
-    cerr << "error: missing name" << endl;
-    return 1;
-  }
-
-  cout << "Hello, " << argv[1] << '!' << endl;
+	return 0;
 }
