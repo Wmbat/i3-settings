@@ -8,26 +8,51 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-build2:
-    name: Compile build2
+  main:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - name: Build2 setup
-        uses: build2/setup-build2-github-action@v2
-      
-      - name: Get location of Build2
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: update system
         run: |
-          which bdep
-          which b
+          sudo apt-get -y update
+          sudo apt-get -y install doxygen
+          sudo apt-get -y install python3
+          pip install compiledb
+    
+      - name: install Clang
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 14 all
+          # sudo apt-get install clang-tools-14 clang-tidy-14
 
-      - name: Publish Build2 executables
-        uses: actions/upload-artifact@v3
+      - name: install Build2
+        uses: build2/setup-build2-github-action@v2
+
+      - name: setup project
+        run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++
+
+      - name: compile project
+        run: b
+
+      - name: generate compilation database
+        run: b -vn clean update |& compiledb
+
+      - name: run unit tests
+        run: b test
+
+          #- name: run clang-tidy
+          #  run: run-clang-tidy -p "./" -export-fixes clang-fixes.yaml
+
+          #- name: process clang-tidy warnings
+          #  uses: asarium/clang-tidy-action@v1
+          #  with:
+          #    fixesFile: clang-fixes.yaml
+
+      - name: run clang-format
+        uses: jidicula/clang-format-action@v4.6.2
         with:
-          name: build2-artifact
-          path: |
-            /usr/local/bin/b
-            /usr/local/bin/bdep
-
-  sanity-checks:
-    name: Sanity Checks
-    uses: ./.github/workflows/sanity-checks
+          clang-format-version: '14'
