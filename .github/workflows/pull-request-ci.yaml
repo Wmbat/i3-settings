@@ -12,7 +12,7 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - name: checkout 
+      - name: checkout
         uses: actions/checkout@v2
 
       - name: update system
