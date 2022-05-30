@@ -1,22 +1,35 @@
+/**
+ * @file libi3-settings/parsing/token.hpp
+ * @author wmbat-dev@protonmail.com
+ * @brief
+ */
 #pragma once
+
+/**
+ * third-party libraries
+ */
 
 #include <magic_enum.hpp>
 
 #include <fmt/core.h>
+
+/**
+ * standard library
+ */
 
 #include <string>
 
 namespace i3s::parsing
 {
 	/**
-	 *
+	 * @brief The type of each supported token in the lexical analysis of an i3 source file
 	 */
 	enum struct token_type
 	{
-		bindsym,
-		exec,
+		bindsym, ///< represents a bindsym command
+		exec,	 ///< represents a exec command
 
-		plus,
+		plus, ///< represents the '+' operator
 
 		identifier,
 		command,
@@ -28,10 +41,13 @@ namespace i3s::parsing
 		unknown
 	};
 
+	/**
+	 * @brief Holds the information of a token type and it's corresponding parsed lexeme
+	 */
 	struct token
 	{
-		token_type type;
-		std::string lexeme;
+		token_type type;	///< The type of the token
+		std::string lexeme; ///< The lexeme of the token
 	};
 } // namespace i3s::parsing
 

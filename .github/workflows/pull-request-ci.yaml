@@ -23,11 +23,9 @@ jobs:
           pip install compiledb
     
       - name: install Clang
-        run: |
-          wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 14 all
-          # sudo apt-get install clang-tools-14 clang-tidy-14
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: 14
 
       - name: install Build2
         uses: build2/setup-build2-github-action@v2
