@@ -60,7 +60,7 @@ namespace i3s
 			| rv::split('\n')                            // │ 
 			| rv::transform(to_string_view)              // │ This code performs the "scanning" phase 
 			| rv::remove_if(is_empty)                    // │ of the lexical analysis & removes all 
-			| rv::remove_if(is_comment)                  // │ unnecessary components of the tex 
+			| rv::remove_if(is_comment)                  // │ unnecessary components of the text 
 			| rv::transform(trim_line)                   // │ such as comments, empty lines, etc...
 			| rv::join                                   // │
 			| ranges::to<std::string>;                   // ┘

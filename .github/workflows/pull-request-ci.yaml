@@ -18,17 +18,17 @@ jobs:
       - name: install Clang
         uses: egor-tensin/setup-clang@v1
         with:
-          version: 14
-
-      - name: install Build2
-        uses: build2/setup-build2-github-action@v2
+          version: 13
 
       - name: update system
         run: |
           sudo apt-get -y update
-          sudo apt-get -y install doxygen
           sudo apt-get -y install python3
+          sudo apt-get -y install clang-tidy-13
           pip install compiledb
+
+      - name: install Build2
+        uses: build2/setup-build2-github-action@v2
 
       - name: setup project
         run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++
@@ -42,8 +42,8 @@ jobs:
       - name: run unit tests
         run: b test
 
-          #- name: run clang-tidy
-          #  run: run-clang-tidy -p "./" -export-fixes clang-fixes.yaml
+      - name: run clang-tidy
+        run: run-clang-tidy -p "./" -export-fixes clang-fixes.yaml
 
           #- name: process clang-tidy warnings
           #  uses: asarium/clang-tidy-action@v1
@@ -53,4 +53,4 @@ jobs:
       - name: run clang-format
         uses: jidicula/clang-format-action@v4.6.2
         with:
-          clang-format-version: '14'
+          clang-format-version: '13'
