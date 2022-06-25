@@ -12,7 +12,9 @@ namespace i3s
 	{
 	public:
 		error(std::error_code error_code, source_location location);
-		error(std::error_code error_code, std::string_view context, source_location location);
+		error(std::error_code error_code, std::string const& context, source_location location);
+		error(std::error_code error_code, std::string const& context,
+			  std::string const& extra_information, source_location location);
 
 		[[nodiscard]] auto what() const noexcept -> std::string_view;
 
@@ -22,7 +24,15 @@ namespace i3s
 	};
 } // namespace i3s
 
+/// @private
 template <>
-class fmt::formatter<i3s::error>
+struct fmt::formatter<i3s::error>
 {
+	constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) { return ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const i3s::error& val, FormatContext& ctx)
+	{
+		return format_to(ctx.out(), "{}", val.what());
+	}
 };

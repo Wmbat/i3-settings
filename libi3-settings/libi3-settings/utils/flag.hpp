@@ -34,7 +34,7 @@ namespace i3s
 	};
 
 	/**
-	 * @brief Enables flag operations on an specific enum type
+	 * @brief Models a bitflag like behaviour around scoped enumeration types
 	 *
 	 * @tparam Enum
 	 */

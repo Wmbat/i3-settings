@@ -29,11 +29,54 @@ struct i3s::flag_traits<fruit_salad>
 
 I3S_DEFINE_EXTRA_ENUM_OPERATORS(fruit_salad_flag)
 
-TEST_CASE("comparison", "[flag]")
+// TODO(wmbat): Need to add checking of all operators
+
+SCENARIO("comparing flags", "[flag]")
 {
-	SECTION("less than") {}
-	SECTION("less than or equal") {}
-	SECTION("greater than") {}
-	SECTION("greater than or equal") {}
-	SECTION("equal") {}
+	GIVEN("an assortment of fruit salads")
+	{
+		auto const salad_1 = fruit_salad::apple | fruit_salad::banana;
+		auto const salad_2 = fruit_salad::apple | fruit_salad::banana | fruit_salad::lemon;
+		auto const salad_3 = fruit_salad::apple | fruit_salad::banana | fruit_salad::lemon;
+
+		WHEN("comparing a 2 fruit salad to a 3 fruit salad")
+		{
+			bool lt = salad_1 < salad_2;
+			bool lte = salad_1 <= salad_2;
+			bool gt = salad_2 > salad_1;
+			bool gte = salad_2 >= salad_1;
+			bool eq = salad_2 == salad_1;
+			bool neq = salad_2 != salad_1;
+
+			THEN("the 2 fruit salad should be smaller than then 3 fruit salad")
+			{
+				CHECK(lt);
+				CHECK(lte);
+				CHECK(gt);
+				CHECK(gte);
+				CHECK(not eq);
+				CHECK(neq);
+			}
+		}
+
+		WHEN("comparing two identical fruit salads")
+		{
+			bool lt = salad_2 < salad_3;
+			bool lte = salad_2 <= salad_3;
+			bool gt = salad_3 > salad_2;
+			bool gte = salad_3 >= salad_2;
+			bool eq = salad_3 == salad_2;
+			bool neq = salad_3 != salad_2;
+
+			THEN("the fruit salads should be the same")
+			{
+				CHECK(not lt);
+				CHECK(lte);
+				CHECK(not gt);
+				CHECK(gte);
+				CHECK(eq);
+				CHECK(not neq);
+			}
+		}
+	}
 }

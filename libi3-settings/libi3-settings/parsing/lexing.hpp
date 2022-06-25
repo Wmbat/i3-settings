@@ -28,7 +28,7 @@
 
 namespace i3s::parsing
 {
-	auto lex_data(std::string_view const config_data) -> std::vector<token>;
+	auto lex(std::string_view input) -> std::vector<token>;
 
 	/**
 	 * @brief A view to perform lexical analysis on some input forward range.
@@ -60,6 +60,7 @@ namespace i3s::parsing
 			void next(ranges::iterator_t<Range> it) const { it += 2; };
 
 		private:
+			token m_current_token = {.lexeme = {}, .type = token_type::unknown};
 		};
 
 		auto begin_adaptor() const -> adaptor { return adaptor{}; }

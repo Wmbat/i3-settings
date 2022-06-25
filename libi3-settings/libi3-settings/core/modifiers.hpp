@@ -1,6 +1,20 @@
+/**
+ * @file libi3-settings/core/modifiers.hpp
+ * @author wmbat-dev@protonmail.com
+ * @brief
+ */
+
 #pragma once
 
+/**
+ * local library
+ */
+
 #include <libi3-settings/utils/flag.hpp>
+
+/**
+ * third-party libraries
+ */
 
 #include <fmt/format.h>
 #include <fmt/ranges.h>
@@ -11,6 +25,10 @@
 #include <range/v3/view/transform.hpp>
 
 #include <magic_enum.hpp>
+
+/**
+ * standard library
+ */
 
 #include <string_view>
 #include <vector>
@@ -49,21 +67,27 @@ namespace i3s
 	I3S_DEFINE_EXTRA_ENUM_OPERATORS(modifier_flag)
 } // namespace i3s
 
+/// @private
 template <>
-struct fmt::formatter<i3s::modifier> : formatter<std::string_view>
+struct fmt::formatter<i3s::modifier>
 {
+	constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) { return ctx.begin(); }
+
 	template <class FormatContext>
-	auto format(i3s::modifier val, FormatContext& ctx)
+	constexpr auto format(i3s::modifier val, FormatContext& ctx)
 	{
-		return formatter<std::string_view>::format(magic_enum::enum_name(val), ctx);
+		return format_to(ctx.out(), "{}", magic_enum::enum_name(val));
 	}
 };
 
+/// @private
 template <>
-struct fmt::formatter<i3s::modifier_flag> : formatter<std::string_view>
+struct fmt::formatter<i3s::modifier_flag>
 {
+	constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) { return ctx.begin(); }
+
 	template <class FormatContext>
-	auto format(i3s::modifier_flag flag, FormatContext& ctx)
+	constexpr auto format(i3s::modifier_flag flag, FormatContext& ctx)
 	{
 		// clang-format off
 		I3S_LET used_enum_values = magic_enum::enum_values<i3s::modifier>()
@@ -71,7 +95,6 @@ struct fmt::formatter<i3s::modifier_flag> : formatter<std::string_view>
 			| ranges::to<std::vector>();
 		// clang-format on
 
-		return formatter<std::string_view>::format(
-			fmt::format("{}", fmt::join(used_enum_values, "+")), ctx);
+		return format_to(ctx.out(), "{}", fmt::format("{}", fmt::join(used_enum_values, "+")));
 	}
 };

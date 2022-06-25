@@ -1,10 +1,16 @@
 /**
  * @file libi3-settings/core/source_location.hpp
  * @author wmbat-dev@protonmail.com
- * @brief 
+ * @brief
  */
 
 #pragma once
+
+/**
+ * third-party libraries
+ */
+
+#include <fmt/format.h>
 
 /**
  * standard library
@@ -35,15 +41,18 @@ namespace i3s
 		/**
 		 * @brief The line number of the source_location
 		 */
-		constexpr auto line() -> std::size_t { return m_line; }
+		[[nodiscard]] constexpr auto line() const -> std::size_t { return m_line; }
 		/**
 		 * @brief the file name of the source_location
 		 */
-		constexpr auto file_name() -> char const* { return m_file_name; }
+		[[nodiscard]] constexpr auto file_name() const -> char const* { return m_file_name; }
 		/**
 		 * @brief the function name of the source_location
 		 */
-		constexpr auto function_name() -> char const* { return m_function_name; }
+		[[nodiscard]] constexpr auto function_name() const -> char const*
+		{
+			return m_function_name;
+		}
 
 	private:
 		char const* const m_file_name = nullptr;
@@ -51,3 +60,20 @@ namespace i3s
 		std::size_t const m_line = 0;
 	};
 } // namespace i3s
+
+/// @private
+template <>
+struct fmt::formatter<i3s::source_location>
+{
+	constexpr auto parse(format_parse_context& ctx) -> decltype(ctx.begin()) { return ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const i3s::source_location& val, FormatContext& ctx)
+	{
+		return format_to(ctx.out(), "{}:({}): {}", val.file_name(), val.line(),
+						 val.function_name());
+	}
+};
+
+// NOLINTNEXTLINE
+#define I3S_SOURCE_LOCATION i3s::source_location(__FILE_NAME__, __PRETTY_FUNCTION__, __LINE__)

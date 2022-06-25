@@ -73,7 +73,7 @@ namespace i3s
 	/**
 	 * @brief Cast a scoped enum to its underlying type.
 	 *
-	 * Equivalent to 
+	 * Equivalent to
 	 * @code
 	 * static_cast<std::underlying_type_t<Enum>>(e);
 	 * @endcode

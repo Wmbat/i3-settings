@@ -6,17 +6,18 @@ namespace i3s
 {
 	error::error(std::error_code error_code, source_location location) :
 		m_error_code(error_code),
-		m_what(fmt::format("Error found at {}:{}: in function {}:\n\terror code: {}",
-						   location.file_name(), location.line(), location.function_name(),
-						   m_error_code.message()))
+		m_what(fmt::format("Error found at {}:\n\terror code: {}", location, error_code.message()))
 
 	{}
-	error::error(std::error_code error_code, std::string_view context, source_location location) :
+	error::error(std::error_code error_code, std::string const& context, source_location location) :
+		m_error_code(error_code), m_what(fmt::format("Error found at {}: {}\n\terror code: {}",
+													 location, context, error_code.message()))
+	{}
+	error::error(std::error_code error_code, std::string const& context,
+				 std::string const& extra_information, source_location location) :
 		m_error_code(error_code),
-		m_what(fmt::format(
-			"Error found at {}:{}: in function {}:\n\terror code: {}\n\treason for failure: {}",
-			location.file_name(), location.line(), location.function_name(), m_error_code.message(),
-			context))
+		m_what(fmt::format("Error found at {}: {}\n\terror code: {}\n\textra information: \n\t\t{}",
+						   location, context, extra_information, error_code.message()))
 	{}
 
 	auto error::what() const noexcept -> std::string_view { return m_what; }

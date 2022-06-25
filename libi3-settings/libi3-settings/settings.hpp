@@ -15,21 +15,28 @@ namespace i3s
 		std::vector<bindsym> bindsyms;
 	};
 
-	enum struct load_file_error
-	{
-		failed_to_open_file
-	};
-
 	enum struct parse_error
 	{
 
 	};
 
-	auto make_error_code(load_file_error error_code) -> std::error_code;
-	auto make_error_code(parse_error error_code) -> std::error_code;
+	namespace detail
+	{
+		struct parse_error_category : std::error_category
+		{
+			[[nodiscard]] auto name() const noexcept -> char const* override
+			{
+				return "i3s::parse_config";
+			}
 
-	auto load_config_data(std::filesystem::path const& path)
-		-> tl::expected<std::string, error>;
+			[[nodiscard]] auto message(int err) const -> std::string override
+			{
+				return std::string(magic_enum::enum_name(static_cast<i3s::parse_error>(err)));
+			}
+		};
+	} // namespace detail
+
+	auto make_error_code(parse_error error_code) -> std::error_code;
 
 	auto extract_settings(std::string&& data) -> tl::expected<settings, error>;
 } // namespace i3s
