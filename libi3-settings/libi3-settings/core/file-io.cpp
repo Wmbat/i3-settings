@@ -47,11 +47,6 @@ namespace i3s
 			auto const filename = path.filename();
 			auto const parent_path = path.parent_path();
 
-			for(auto& entry : std::filesystem::directory_iterator(parent_path))
-			{
-				
-			}
-
 			return tl::unexpected(error(make_error_code(load_file_error::failed_to_open_file),
 										fmt::format("Unable to open the file \"{}\"", path.c_str()),
 										I3S_SOURCE_LOCATION));

@@ -31,7 +31,7 @@ jobs:
         uses: build2/setup-build2-github-action@v2
 
       - name: setup project
-        run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++
+        run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++ confic.cc.coptions='-O0 -g'
 
       - name: compile project
         run: b
