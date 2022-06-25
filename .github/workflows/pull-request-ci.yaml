@@ -24,7 +24,6 @@ jobs:
         run: |
           sudo apt-get -y update
           sudo apt-get -y install python3
-          sudo apt-get -y install clang-tidy-13
           pip install compiledb
 
       - name: install Build2
@@ -33,17 +32,17 @@ jobs:
       - name: setup project
         run: bdep init -C ../clang @clang cc config.c=clang config.cxx=clang++ confic.cc.coptions='-O0 -g'
 
-      - name: compile project
-        run: b
-
       - name: generate compilation database
         run: b -vn clean update |& compiledb
 
-      - name: run unit tests
-        run: b test
+      - name: compile project
+        run: b
 
-      - name: run clang-tidy
-        run: run-clang-tidy -p "./" -export-fixes clang-fixes.yaml
+      - name: run unit tests
+        run: b update test -V
+
+          #- name: run clang-tidy
+          #  run: run-clang-tidy -p "./" -export-fixes clang-fixes.yaml
 
           #- name: process clang-tidy warnings
           #  uses: asarium/clang-tidy-action@v1
