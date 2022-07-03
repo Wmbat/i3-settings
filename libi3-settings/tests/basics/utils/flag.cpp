@@ -1,7 +1,7 @@
 #include <libi3-settings/defines.hpp>
 #include <libi3-settings/utils/flag.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 enum struct fruit_salad
 {

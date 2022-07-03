@@ -2,7 +2,7 @@
 
 #include <magic_enum.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 enum struct test_error
 {
