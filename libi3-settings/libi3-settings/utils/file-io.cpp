@@ -1,4 +1,6 @@
-#include <libi3-settings/core/file-io.hpp>
+#include <libi3-settings/utils/file-io.hpp>
+
+#include <libi3-settings/utils/levenshtein-distance.hpp>
 
 /**
  * standard library
@@ -44,8 +46,9 @@ namespace i3s
 		}
 		else
 		{
-			auto const filename = path.filename();
-			auto const parent_path = path.parent_path();
+			// TODO(wmbat): Add extra information to the error by trying to find the correct file
+
+			i3s::levenshtein_distance(std::string("hello"), std::string("hella"));
 
 			return tl::unexpected(error(make_error_code(load_file_error::failed_to_open_file),
 										fmt::format("Unable to open the file \"{}\"", path.c_str()),

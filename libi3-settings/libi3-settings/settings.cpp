@@ -39,10 +39,7 @@ namespace
 	 */
 	auto is_space(char c) -> bool { return std::isspace(c); }
 
-	auto trim_line(std::string_view const line)
-	{
-		return line | rv::trim(is_space);
-	}
+	auto trim_line(std::string_view const line) { return line | rv::trim(is_space); }
 } // namespace
 
 namespace i3s
