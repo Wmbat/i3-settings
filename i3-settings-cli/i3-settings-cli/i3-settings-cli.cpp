@@ -3,12 +3,12 @@
 
 auto main() -> int
 {
-	if (auto res = i3s::load_file("~/.config/i3/confg"))
+	if (auto res = i3s::load_file("/home/wmbat/.config/i3"))
 	{
 	}
 	else
 	{
-		fmt::print("{}", res.error());
+		fmt::print("{:s}", res.error());
 	}
 
 	return 0;

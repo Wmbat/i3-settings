@@ -33,7 +33,9 @@ namespace i3s
 	 */
 	enum struct load_file_error
 	{
-		failed_to_open_file = 0
+		file_does_not_exist = 0,
+		not_a_file,
+		failed_to_open_file,
 	};
 
 	/**
