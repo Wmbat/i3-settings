@@ -1,0 +1,14 @@
+: 1
+name: libi3-settings-tests
+version: 0.1.0-a.0.z
+project: i3-settings
+summary: libi3-settings-tests C++ executable
+license: other: proprietary ; Not free/open source.
+description-file: README.md
+url: https://example.org/i3-settings
+email: wmbat-dev@protonmail.com
+#build-error-email: wmbat-dev@protonmail.com
+depends: * build2 >= 0.14.0
+depends: * bpkg >= 0.14.0
+
+depends: catch2 ^3.0.1

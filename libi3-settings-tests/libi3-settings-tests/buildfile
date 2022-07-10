@@ -1,0 +1,6 @@
+import libs = libi3-settings%lib{i3-settings}
+import libs += catch2%liba{catch2wmain}
+
+exe{libi3-settings-tests}: {hxx ixx txx cxx}{**} $libs
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
