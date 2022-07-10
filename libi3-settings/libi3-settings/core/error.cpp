@@ -1,4 +1,5 @@
 #include <libi3-settings/core/error.hpp>
+
 #include <string>
 #include <utility>
 

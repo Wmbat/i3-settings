@@ -1,5 +1,5 @@
 /**
- * @file libi3-settings/utils/OSA-distance.hpp
+ * @file libi3-settings/utils/levenshtein-distance.hpp
  * @author wmbat-dev@protonmail.com
  * @brief
  */
