@@ -1,4 +1,0 @@
-import libs = libi3-settings%lib{i3-settings}
-import libs += catch2%lib{catch2}
-
-exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}

@@ -7,7 +7,11 @@ license: other: proprietary ; Not free/open source.
 description-file: README.md
 url: https://example.org/i3-settings
 email: wmbat-dev@protonmail.com
-#build-error-email: wmbat-dev@protonmail.com
+
+tests: libi3-settings-tests == $
+
+requires: c++ >= 20
+
 depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
 
@@ -15,4 +19,4 @@ depends: fmt ^8.1.1
 depends: magic_enum ^0.7.3
 depends: range-v3 ^0.11.0
 depends: tl-expected ^1.0.0
-depends: catch2 ^2.13.8
+depends: ctre ^3.5.0

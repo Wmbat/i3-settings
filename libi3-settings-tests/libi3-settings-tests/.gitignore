@@ -1,0 +1,5 @@
+libi3-settings-tests
+
+# Testscript output directory (can be symlink).
+#
+test-libi3-settings-tests

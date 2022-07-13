@@ -4,3 +4,5 @@ location: libi3-settings/
 location: i3-settings-cli/
 :
 location: i3-settings/
+:
+location: libi3-settings-tests/

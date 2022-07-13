@@ -1,24 +1,25 @@
 #include <libi3-settings/core/error.hpp>
+
 #include <string>
 #include <utility>
 
 namespace i3s
 {
 	error::error(std::error_code error_code, source_location location) :
-		m_error_code(error_code),
-		m_what(fmt::format("Error found at {}:{}: in function {}:\n\terror code: {}",
-						   location.file_name(), location.line(), location.function_name(),
-						   m_error_code.message()))
-
+		m_error_code(error_code), m_location(location)
 	{}
-	error::error(std::error_code error_code, std::string_view context, source_location location) :
-		m_error_code(error_code),
-		m_what(fmt::format(
-			"Error found at {}:{}: in function {}:\n\terror code: {}\n\treason for failure: {}",
-			location.file_name(), location.line(), location.function_name(), m_error_code.message(),
-			context))
+	error::error(std::string cause, std::error_code error_code, source_location location) :
+		m_cause(std::move(cause)), m_error_code(error_code), m_location(location)
+	{}
+	error::error(std::string cause, std::string hint, std::error_code error_code,
+				 source_location location) :
+		m_cause(std::move(cause)),
+		m_hint(std::move(hint)), m_error_code(error_code), m_location(location)
 	{}
 
-	auto error::what() const noexcept -> std::string_view { return m_what; }
+	[[nodiscard]] auto error::code() const noexcept -> std::error_code { return m_error_code; }
+	[[nodiscard]] auto error::cause() const noexcept -> std::string_view { return m_cause; }
+	[[nodiscard]] auto error::hint() const noexcept -> std::string_view { return m_hint; }
+	[[nodiscard]] auto error::location() const noexcept -> source_location { return m_location; }
 
 } // namespace i3s
