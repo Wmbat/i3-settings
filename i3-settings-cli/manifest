@@ -12,3 +12,4 @@ depends: * build2 >= 0.14.0
 depends: * bpkg >= 0.14.0
 
 depends: libi3-settings >= 0.0.1
+depends: spdlog ^1.10.0
